@@ -695,3 +695,7 @@ Invoke-Command -ComputerName "RemoteComputerName" -ScriptBlock { Get-Process }
 ```powershell
 Disable-PSRemoting -Force
 ```
+
+### Acknowledgment
+
+Some of the PowerShell commands in this repository have been inspired by or sourced from the excellent article "[Top 51 PowerShell Commands That You Should Know](https://stackify.com/powershell-commands-every-developer-should-know/)" by **Stackify**. This article provides a comprehensive guide for developers and IT professionals to use PowerShell for various administrative and development tasks.
