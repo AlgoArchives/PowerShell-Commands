@@ -358,3 +358,340 @@ Get-Help Get-Process
 ```powershell
 Update-Help
 ```
+
+---
+
+### 12. **Development and Debugging**
+
+#### Get Installed Modules
+```powershell
+Get-Module -ListAvailable
+```
+
+#### Import a Module
+```powershell
+Import-Module "ModuleName"
+```
+
+#### Find a Module from the PowerShell Gallery
+```powershell
+Find-Module -Name "ModuleName"
+```
+
+#### Install a Module from PowerShell Gallery
+```powershell
+Install-Module -Name "ModuleName"
+```
+
+#### Remove a Module
+```powershell
+Remove-Module -Name "ModuleName"
+```
+
+#### Export a Module Member
+```powershell
+Export-ModuleMember -Function "FunctionName" -Alias "AliasName"
+```
+
+---
+
+### 13. **Version Control (Git) with PowerShell**
+
+#### Clone a Git Repository
+```powershell
+git clone https://github.com/username/repo.git
+```
+
+#### Check Git Status
+```powershell
+git status
+```
+
+#### Stage Files for Commit
+```powershell
+git add .
+```
+
+#### Commit Changes
+```powershell
+git commit -m "Your commit message"
+```
+
+#### Push Changes to Remote Repository
+```powershell
+git push origin main
+```
+
+#### Pull Latest Changes
+```powershell
+git pull origin main
+```
+
+#### Create a New Branch
+```powershell
+git checkout -b "new-branch-name"
+```
+
+#### Merge a Branch
+```powershell
+git merge "branch-name"
+```
+
+---
+
+### 14. **Security and Encryption**
+
+#### Encrypt a Password
+```powershell
+$SecurePassword = Read-Host -AsSecureString
+```
+
+#### Convert Secure Password to Plain Text (for Testing Only!)
+```powershell
+[Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecurePassword))
+```
+
+#### Convert a String to a Secure String
+```powershell
+$SecureString = ConvertTo-SecureString "yourpassword" -AsPlainText -Force
+```
+
+#### Create Self-Signed Certificate
+```powershell
+New-SelfSignedCertificate -DnsName "www.example.com" -CertStoreLocation "cert:\LocalMachine\My"
+```
+
+#### Add a Trusted Root Certificate Authority
+```powershell
+Import-Certificate -FilePath "C:\Path\To\Certificate.cer" -CertStoreLocation Cert:\LocalMachine\Root
+```
+
+---
+
+### 15. **Error Handling and Debugging**
+
+#### Try/Catch Block for Error Handling
+```powershell
+try {
+    # Code that might throw an exception
+    $result = Get-Process -Name "NonExistentProcess"
+} catch {
+    Write-Host "Error occurred: $_"
+}
+```
+
+#### Display Errors in PowerShell
+```powershell
+$Error
+```
+
+#### Clear Error Buffer
+```powershell
+$Error.Clear()
+```
+
+#### Set Error Action Preference to Stop
+```powershell
+$ErrorActionPreference = "Stop"
+```
+
+#### Check Last Error
+```powershell
+$?
+```
+
+---
+
+### 16. **Working with APIs**
+
+#### Invoke a REST API (GET Request)
+```powershell
+Invoke-RestMethod -Uri "https://api.example.com/data" -Method Get
+```
+
+#### Send POST Request to API
+```powershell
+Invoke-RestMethod -Uri "https://api.example.com/data" -Method Post -Body $jsonBody -ContentType "application/json"
+```
+
+#### Convert JSON to PowerShell Object
+```powershell
+$json = '{"name": "John", "age": 30}'
+ConvertFrom-Json $json
+```
+
+#### Convert PowerShell Object to JSON
+```powershell
+$object = @{ name = "John"; age = 30 }
+$object | ConvertTo-Json
+```
+
+---
+
+### 17. **Performance Monitoring**
+
+#### Get CPU Usage
+```powershell
+Get-WmiObject -Class Win32_Processor | Select-Object -Property LoadPercentage
+```
+
+#### Get Memory Usage
+```powershell
+Get-WmiObject -Class Win32_OperatingSystem | Select-Object -Property TotalVisibleMemorySize, FreePhysicalMemory
+```
+
+#### Monitor Disk Performance
+```powershell
+Get-Counter -Counter "\PhysicalDisk(_Total)\% Disk Time"
+```
+
+#### Monitor Network Interface Throughput
+```powershell
+Get-Counter -Counter "\Network Interface(*)\Bytes Total/sec"
+```
+
+#### Measure Script Execution Time
+```powershell
+Measure-Command { # Your script block here }
+```
+
+---
+
+### 18. **Database Management (SQL)**
+
+#### Execute SQL Query (using SQL Server)
+```powershell
+Invoke-Sqlcmd -Query "SELECT * FROM YourTable" -ServerInstance "ServerName" -Database "DatabaseName"
+```
+
+#### Export SQL Query Results to CSV
+```powershell
+Invoke-Sqlcmd -Query "SELECT * FROM YourTable" -ServerInstance "ServerName" -Database "DatabaseName" | Export-Csv -Path "C:\Path\To\Export.csv" -NoTypeInformation
+```
+
+#### Backup a SQL Database
+```powershell
+Backup-SqlDatabase -ServerInstance "ServerName" -Database "DatabaseName" -BackupFile "C:\Path\To\Backup.bak"
+```
+
+#### Restore a SQL Database
+```powershell
+Restore-SqlDatabase -ServerInstance "ServerName" -Database "DatabaseName" -BackupFile "C:\Path\To\Backup.bak"
+```
+
+---
+
+### 19. **File Compression and Archiving**
+
+#### Compress Files into a Zip Archive
+```powershell
+Compress-Archive -Path "C:\Path\To\Files\*" -DestinationPath "C:\Path\To\Archive.zip"
+```
+
+#### Extract a Zip Archive
+```powershell
+Expand-Archive -Path "C:\Path\To\Archive.zip" -DestinationPath "C:\Path\To\ExtractedFiles"
+```
+
+---
+
+### 20. **Working with Active Directory (Requires Active Directory Module)**
+
+#### Import Active Directory Module
+```powershell
+Import-Module ActiveDirectory
+```
+
+#### Get AD Users
+```powershell
+Get-ADUser -Filter *
+```
+
+#### Get AD Groups
+```powershell
+Get-ADGroup -Filter *
+```
+
+#### Add User to Active Directory
+```powershell
+New-ADUser -Name "John Doe" -GivenName "John" -Surname "Doe" -SamAccountName "jdoe" -UserPrincipalName "jdoe@example.com" -Path "OU=Users,DC=example,DC=com" -AccountPassword (ConvertTo-SecureString "Password123!" -AsPlainText -Force) -Enabled $true
+```
+
+#### Remove AD User
+```powershell
+Remove-ADUser -Identity "jdoe"
+```
+
+#### Find Locked AD Accounts
+```powershell
+Search-ADAccount -LockedOut
+```
+
+---
+
+### 21. **Task Automation and Scheduling**
+
+#### Create a Scheduled Task
+```powershell
+$action = New-ScheduledTaskAction -Execute "PowerShell.exe" -Argument "C:\Path\To\YourScript.ps1"
+$trigger = New-ScheduledTaskTrigger -Daily -At 9am
+Register-ScheduledTask -Action $action -Trigger $trigger -TaskName "MyScheduledTask" -Description "Runs a PowerShell script daily at 9 AM"
+```
+
+#### Remove a Scheduled Task
+```powershell
+Unregister-ScheduledTask -TaskName "MyScheduledTask" -Confirm:$false
+```
+
+---
+
+### 22. **Containers (Docker)**
+
+#### List Docker Containers
+```powershell
+docker ps
+```
+
+#### Start a Docker Container
+```powershell
+docker start "ContainerNameOrID"
+```
+
+#### Stop a Docker Container
+```powershell
+docker stop "ContainerNameOrID"
+```
+
+#### Remove a Docker Container
+```powershell
+docker rm "ContainerNameOrID"
+```
+
+#### Pull a Docker Image
+```powershell
+docker pull "ImageName"
+```
+
+---
+
+### 23. **PowerShell Remoting**
+
+#### Enable PowerShell Remoting
+```powershell
+Enable-PSRemoting -Force
+```
+
+#### Establish Remote Session
+```powershell
+Enter-PSSession -ComputerName "RemoteComputerName"
+```
+
+#### Run Command on Remote Machine
+```powershell
+Invoke-Command -ComputerName "RemoteComputerName" -ScriptBlock { Get-Process }
+```
+
+#### Disable PowerShell Remoting
+```powershell
+Disable-PSRemoting -Force
+```
